@@ -15,7 +15,7 @@ from threading import Thread
 
 # Import your backend functions
 try:
-    from ..backend.src.gsda import (
+    from backend.src.gsda import (
         GSDA_analytic, distributed_GA, grid_centers, 
         user_assignments, total_capacity, zone_side
     )
@@ -96,14 +96,19 @@ class DronePositioningGUI:
         self.ga_iter_var = tk.IntVar(value=3)
         ttk.Spinbox(control_frame, from_=1, to=10, textvariable=self.ga_iter_var, width=10).grid(row=4, column=1, pady=2)
         
+        # Random seed option
+        self.random_seed_var = tk.BooleanVar(value=False)
+        ttk.Checkbutton(control_frame, text="Use Random Seed (different results each run)", 
+                       variable=self.random_seed_var).grid(row=5, column=0, columnspan=2, sticky=tk.W, pady=5)
+        
         # Run button
         self.run_btn = ttk.Button(control_frame, text="Run Optimization", command=self.run_optimization)
-        self.run_btn.grid(row=5, column=0, columnspan=2, pady=15)
+        self.run_btn.grid(row=6, column=0, columnspan=2, pady=15)
         
         # Status
         self.status_var = tk.StringVar(value="Ready")
         status_label = ttk.Label(control_frame, textvariable=self.status_var, foreground='blue')
-        status_label.grid(row=6, column=0, columnspan=2)
+        status_label.grid(row=7, column=0, columnspan=2)
         
         # Results Panel
         results_frame = ttk.LabelFrame(main_frame, text="Results", padding="10")
@@ -178,8 +183,11 @@ class DronePositioningGUI:
             ga_iters = self.ga_iter_var.get()
             
             # Generate users and initial positions
-            random.seed(42)
-            np.random.seed(42)
+            if not self.random_seed_var.get():
+                # Use fixed seed for reproducibility
+                random.seed(42)
+                np.random.seed(42)
+            # else: truly random results each run
             self.generate_users()
             
             centers = grid_centers(self.rows, self.cols)
