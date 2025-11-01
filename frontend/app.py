@@ -70,8 +70,8 @@ class DronePositioningGUI:
         title.grid(row=0, column=0, columnspan=2, pady=10)
         
         # Control Panel
-        control_frame = ttk.LabelFrame(main_frame, text="Configuration", padding="10")
-        control_frame.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N), padx=5, pady=5)
+        control_frame = ttk.LabelFrame(main_frame, text="Configuration", padding="3")
+        control_frame.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N), padx=1, pady=5)
         
         # Grid size
         ttk.Label(control_frame, text="Grid Rows:").grid(row=0, column=0, sticky=tk.W, pady=2)
@@ -87,19 +87,21 @@ class DronePositioningGUI:
         self.users_var = tk.IntVar(value=100)
         ttk.Spinbox(control_frame, from_=20, to=500, textvariable=self.users_var, width=10, increment=10).grid(row=2, column=1, pady=2)
         
-        # Algorithm parameters
-        ttk.Label(control_frame, text="GSDA Iterations:").grid(row=3, column=0, sticky=tk.W, pady=2)
-        self.gsda_iter_var = tk.IntVar(value=10)
-        ttk.Spinbox(control_frame, from_=3, to=20, textvariable=self.gsda_iter_var, width=10).grid(row=3, column=1, pady=2)
+        # # Algorithm parameters
+        # ttk.Label(control_frame, text="GSDA Iterations:").grid(row=3, column=0, sticky=tk.W, pady=2)
+        # self.gsda_iter_var = tk.IntVar(value=10)
+        # ttk.Spinbox(control_frame, from_=3, to=20, textvariable=self.gsda_iter_var, width=10).grid(row=3, column=1, pady=2)
+        self.gsda_iter_var = 10
         
-        ttk.Label(control_frame, text="GA Iterations:").grid(row=4, column=0, sticky=tk.W, pady=2)
-        self.ga_iter_var = tk.IntVar(value=3)
-        ttk.Spinbox(control_frame, from_=1, to=10, textvariable=self.ga_iter_var, width=10).grid(row=4, column=1, pady=2)
+        # ttk.Label(control_frame, text="GA Iterations:").grid(row=4, column=0, sticky=tk.W, pady=2)
+        # self.ga_iter_var = tk.IntVar(value=3)
+        # ttk.Spinbox(control_frame, from_=1, to=10, textvariable=self.ga_iter_var, width=10).grid(row=4, column=1, pady=2)
+        self.ga_iter_var = 3
         
         # Random seed option
-        self.random_seed_var = tk.BooleanVar(value=False)
-        ttk.Checkbutton(control_frame, text="Use Random Seed (different results each run)", 
-                       variable=self.random_seed_var).grid(row=5, column=0, columnspan=2, sticky=tk.W, pady=5)
+        # self.random_seed_var = tk.BooleanVar(value=False)
+        # ttk.Checkbutton(control_frame, text="Use Random Seed (different results each run)", 
+        #                variable=self.random_seed_var).grid(row=5, column=0, columnspan=2, sticky=tk.W, pady=5)
         
         # Run button
         self.run_btn = ttk.Button(control_frame, text="Run Optimization", command=self.run_optimization)
@@ -179,15 +181,13 @@ class DronePositioningGUI:
             self.rows = self.rows_var.get()
             self.cols = self.cols_var.get()
             self.num_users = self.users_var.get()
-            gsda_iters = self.gsda_iter_var.get()
-            ga_iters = self.ga_iter_var.get()
+            gsda_iters = 10
+            ga_iters = 3
             
             # Generate users and initial positions
-            if not self.random_seed_var.get():
-                # Use fixed seed for reproducibility
-                random.seed(42)
-                np.random.seed(42)
-            # else: truly random results each run
+
+            # random.seed(42)
+            # np.random.seed(42)
             self.generate_users()
             
             centers = grid_centers(self.rows, self.cols)
@@ -239,7 +239,7 @@ class DronePositioningGUI:
         for widget in self.pos_frame.winfo_children():
             widget.destroy()
         
-        fig = Figure(figsize=(12, 5), dpi=100)
+        fig = Figure(figsize=(10,3), dpi=100)
         
         # GSDA subplot
         ax1 = fig.add_subplot(121)
@@ -287,7 +287,7 @@ class DronePositioningGUI:
         ax.set_ylabel('Y (meters)', fontsize=10)
         ax.set_title(f'{title}\nCapacity: {self.gsda_capacity if color=="green" else self.ga_capacity:.2f} bps/Hz', 
                     fontsize=11, fontweight='bold')
-        ax.legend(loc='upper right', fontsize=9)
+        # ax.legend(loc='upper right', fontsize=9)
         ax.grid(True, alpha=0.3)
         ax.set_aspect('equal')
     
