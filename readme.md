@@ -201,12 +201,6 @@ Improvement: 7.22%
 - **Nishant K**
 - **Nischal B**
 
-## 🙏 Acknowledgments
-
-- Implementation based on research in distributed UAV optimization
-- Radio propagation models follow 3GPP specifications
-- GUI design inspired by modern data visualization practices
-
 ## 📧 Contact
 
 For questions or issues, please open an issue on the [GitHub repository](https://github.com/PrahasGR/UAV_optimisation/issues).
