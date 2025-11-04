@@ -96,7 +96,7 @@ class DronePositioningGUI:
         # ttk.Label(control_frame, text="GA Iterations:").grid(row=4, column=0, sticky=tk.W, pady=2)
         # self.ga_iter_var = tk.IntVar(value=3)
         # ttk.Spinbox(control_frame, from_=1, to=10, textvariable=self.ga_iter_var, width=10).grid(row=4, column=1, pady=2)
-        self.ga_iter_var = 3
+        self.ga_iter_var = 100
         
         # Random seed option
         # self.random_seed_var = tk.BooleanVar(value=False)
@@ -182,7 +182,7 @@ class DronePositioningGUI:
             self.cols = self.cols_var.get()
             self.num_users = self.users_var.get()
             gsda_iters = 10
-            ga_iters = 3
+            ga_iters = 100
             
             # Generate users and initial positions
 

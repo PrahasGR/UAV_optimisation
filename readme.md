@@ -50,10 +50,6 @@ cd UAV_optimisation
 
 ### Install Dependencies
 
-```bash
-pip install -r requirements.txt
-```
-
 **Required packages:**
 
 ```
@@ -111,8 +107,8 @@ UAV_optimisation/
 ├── backend/
 │   ├── src/
 │       ├── gsda.py           # Core GSDA and GA algorithms
-│       └── utils/
-│           └── utils.py      # Radio propagation models
+│   └── utils/
+│       └── utils.py          # Radio propagation models
 │
 │
 ├── frontend/
@@ -121,8 +117,7 @@ UAV_optimisation/
 ├── assets/
 │   └── ui_screenshot.png     # UI screenshot for README
 │
-├── README.md
-└── requirements.txt
+└── README.md
 ```
 
 ## 🔬 Algorithm Details
